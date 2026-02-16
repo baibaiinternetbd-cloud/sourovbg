@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MD SOUROV SARDER· background remover</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f1ff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1b142b;
+      line-height: 1.5;
+    }
+
+    .app-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 24px 32px;
+    }
+
+    /* header */
+    .top-brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      padding: 16px 28px;
+      border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 8px 20px -8px rgba(98, 64, 149, 0.15);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+
+    .brand-left:hover .brand-name h2 {
+      color: #4a2f8a;
+    }
+
+    .brand-icon {
+      background: #2b174f;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: 0.2s;
+    }
+
+    .brand-left:hover .brand-icon {
+      background: #3f2a6b;
+      transform: scale(1.05);
+    }
+
+    .brand-name h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #1c1035;
+      letter-spacing: -0.02em;
+      transition: 0.2s;
+    }
+
+    .brand-name p {
+      font-size: 0.9rem;
+      color: #4d3b74;
+      margin-top: 2px;
+    }
+
+    .service-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .service-pills a {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2d1d4e;
+      background: rgba(255,255,255,0.5);
+      padding: 6px 15px;
+      border-radius: 40px;
+      border: 1px solid #d3c2f0;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .service-pills a:hover {
+      background: #ffffff;
+      border-color: #8a6fc9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(98, 64, 149, 0.2);
+      color: #321f60;
+    }
+
+    .service-pills i {
+      color: #6f4eb6;
+      transition: 0.2s;
+    }
+
+    .service-pills a:hover i {
+      color: #4a2f8a;
+      transform: scale(1.1);
+    }
+
+    /* AD BANNER - kana adstra */
+    .ad-banner {
+      background: linear-gradient(135deg, #e4d9ff, #cfbef5);
+      border-radius: 48px;
+      padding: 22px 36px;
+      margin: 28px 0 32px 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 10px 20px -8px rgba(78, 52, 126, 0.3);
+    }
+
+    .ad-text {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .ad-text i {
+      font-size: 2.5rem;
+      color: #ffd966;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .ad-text span {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #281d48;
+    }
+
+    .ad-button {
+      background: #321f60;
+      color: white;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: 0.15s;
+      text-decoration: none;
+      border: 1px solid #a18cdb;
+    }
+
+    .ad-button:hover {
+      background: #251649;
+      transform: scale(1.02);
+    }
+
+    /* title */
+    .remove-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+    }
+
+    .remove-title h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      background: linear-gradient(145deg, #2f205a, #513b84);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .remove-title i {
+      font-size: 2.3rem;
+      color: #6f4eb6;
+    }
+
+    /* two columns */
+    .dual-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 28px 30px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 40px -14px rgba(68, 41, 112, 0.2);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #2e2152;
+      margin-bottom: 24px;
+    }
+
+    .panel-header i {
+      font-size: 1.9rem;
+      background: #e4d5ff;
+      padding: 12px;
+      border-radius: 50%;
+      color: #3b2670;
+    }
+
+    /* upload area */
+    .upload-box {
+      border: 3px dashed #bba7e0;
+      border-radius: 36px;
+      padding: 32px 20px;
+      text-align: center;
+      background: #faf7ff;
+      transition: 0.2s;
+      cursor: pointer;
+      margin-bottom: 28px;
+    }
+
+    .upload-box:hover {
+      border-color: #7b5fb0;
+      background: #f2eaff;
+    }
+
+    .upload-box i {
+      font-size: 3.5rem;
+      color: #674ea7;
+      margin-bottom: 16px;
+    }
+
+    .upload-box p {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #281e44;
+    }
+
+    .upload-box small {
+      color: #5f4d85;
+      font-size: 0.95rem;
+    }
+
+    #imageUpload {
+      display: none;
+    }
+
+    /* recent file row */
+    .recent-file-row {
+      background: #f0eafc;
+      border-radius: 60px;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0 18px;
+      border: 1px solid #d2c1f2;
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .file-info i {
+      font-size: 1.8rem;
+      color: #a27bd6;
+    }
+
+    .file-info span {
+      font-weight: 500;
+      color: #332356;
+    }
+
+    .file-download-icon {
+      background: white;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4d2e8f;
+      font-size: 1.4rem;
+      cursor: pointer;
+      border: 1px solid #cbb5f0;
+      transition: 0.1s;
+    }
+
+    .file-download-icon:hover {
+      background: #efe3ff;
+    }
+
+    /* remove bg button */
+    .remove-btn {
+      background: #321f60;
+      border: none;
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 12px 24px -8px #624a9e;
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid #9375cf;
+      margin-bottom: 14px;
+    }
+
+    .remove-btn:hover {
+      background: #261849;
+    }
+
+    .terms-note {
+      font-size: 0.85rem;
+      color: #5b4b7a;
+      text-align: center;
+    }
+
+    .terms-note a {
+      color: #382e5e;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .terms-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* preview area */
+    .preview-area {
+      background: #e9e1f5;
+      border-radius: 36px;
+      padding: 24px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: 
+        linear-gradient(45deg, #d4c7ec 25%, transparent 25%),
+        linear-gradient(-45deg, #d4c7ec 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #d4c7ec 75%),
+        linear-gradient(-45deg, transparent 75%, #d4c7ec 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+      border: 2px solid white;
+      margin-bottom: 25px;
+    }
+
+    .preview-area img {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 28px;
+      box-shadow: 0 18px 25px -12px black;
+    }
+
+    .placeholder-preview {
+      text-align: center;
+      color: #54467b;
+    }
+
+    .placeholder-preview i {
+      font-size: 4rem;
+      opacity: 0.5;
+      margin-bottom: 15px;
+    }
+
+    .download-result-btn {
+      background: transparent;
+      border: 2px solid #6c50a8;
+      width: 100%;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #2d1b53;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .download-result-btn:hover:not(:disabled) {
+      background: #ece3ff;
+    }
+
+    .download-result-btn:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* footer */
+    .footer-classic {
+      margin-top: 60px;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 60px 60px 30px 30px;
+      padding: 40px 48px 28px;
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-icon {
+      background: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #381f72;
+      border: 1px solid #c7b1ed;
+    }
+
+    .footer-text .bold {
+      font-weight: 700;
+      color: #1c1035;
+    }
+
+    .footer-text {
+      color: #332a4a;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin: 32px 0 24px;
+    }
+
+    .social-row a {
+      background: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: #2e1d57;
+      border: 1px solid #ccb8f2;
+      transition: 0.1s;
+      text-decoration: none;
+    }
+
+    .social-row a:hover {
+      background: #dfd0fc;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      font-weight: 400;
+      color: #463b62;
+      border-top: 1px solid #dac9fd;
+      padding-top: 28px;
+      margin-top: 18px;
+    }
+
+    .copyright a {
+      color: #291d4b;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .copyright a:hover {
+      text-decoration: underline;
+    }
+
+    /* hidden helper */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+
+  <!-- header with clickable elements -->
+  <div class="top-brand">
+    <div class="brand-left" id="homeLink" title="Go to Khaled IT Solution">
+      <div class="brand-icon"><i class="fas fa-code"></i></div>
+      <div class="brand-name">
+        <h2>MD SOUROV SARDER</h2>
+        <p>Developer & Digital Services</p>
+      </div>
+    </div>
+    <div class="service-pills">
+      <a href="#" id="webDevBtn"><i class="fas fa-globe"></i> Web Dev</a>
+      <a href="#" id="seoBtn"><i class="fas fa-chart-line"></i> SEO</a>
+      <a href="#" id="marketingBtn"><i class="fas fa-bullhorn"></i> Marketing</a>
+      <a href="#" id="supportBtn"><i class="fas fa-lock"></i> Support</a>
+      <a href="#" id="contactBtn"><i class="fas fa-headset"></i> Contact</a>
+    </div>
+  </div>
+
+  <!-- AD BANNER (kana adstra) -->
+  <div class="ad-banner">
+    <div class="ad-text">
+      <i class="fas fa-bolt"></i>
+      <span>🔥 AI bg remove pro – 40% off!  🔥</span>
+    </div>
+    <a href="#" class="ad-button" id="adGrabDeal" target="_blank"><i class="fas fa-arrow-right"></i> Grab deal</a>
+  </div>
+
+  <!-- title -->
+  <div class="remove-title">
+    <i class="fas fa-magic"></i>
+    <h1>Background Remover · Powered by Remove.bg · AI instant</h1>
+  </div>
+
+  <!-- main columns -->
+  <div class="dual-panel">
+    <!-- LEFT PANEL (original) -->
+    <div class="panel">
+      <div class="panel-header">
+        <i class="fas fa-image"></i> original
+      </div>
+
+      <!-- upload area -->
+      <div class="upload-box" id="uploadTrigger">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Upload image</p>
+        <small>PNG, JPG, WEBP (max 10MB) · or drag & drop</small>
+      </div>
+      <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg, image/webp">
+
+      <!-- recent file row (WhatsApp style) -->
+      <div class="recent-file-row" id="recentRow">
+        <div class="file-info">
+          <i class="fab fa-whatsapp"></i>
+          <span id="dynamicFilename">WhatsApp Image 2026-02-13 at 1...</span>
+        </div>
+        <div class="file-download-icon" id="dummyDownload" title="download result">
+          <i class="fas fa-download"></i>
+        </div>
+      </div>
+
+      <!-- REMOVE BACKGROUND BUTTON -->
+      <button class="remove-btn" id="removeBgBtn">
+        <i class="fas fa-eraser"></i> remove background
+      </button>
+
+      <div class="terms-note">
+        By uploading, you agree to our <a href="#" id="termsLink">Terms</a> and <a href="#" id="privacyLink">Privacy</a>.
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (result) -->
+    <div class="panel">
+      <div class="panel-header">
+        <i class="fas fa-eye"></i> result
+      </div>
+
+      <div class="preview-area" id="previewContainer">
+        <div class="placeholder-preview" id="placeholderPreview">
+          <i class="fas fa-image"></i>
+          <span>processed image will appear</span>
+        </div>
+        <img id="previewImage" src="" alt="removed bg" style="display: none;">
+      </div>
+
+      <button class="download-result-btn" id="downloadBtn" disabled>
+        <i class="fas fa-download"></i> download
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer-classic">
+    <div class="footer-grid">
+      <div class="footer-item">
+        <div class="footer-icon"><i class="fas fa-map-pin"></i></div>
+        <div class="footer-text">
+          <span class="bold">Dhaka, Bangladesh</span><br>
+          Madaripur Sador
+        </div>
+      </div>
+      <div class="footer-item">
+        <div class="footer-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="footer-text">
+          <span class="bold">+880923231134</span><br>
+        </div>
+      </div>
+      <div class="footer-item">
+        <div class="footer-icon"><i class="fas fa-envelope"></i></div>
+        <div class="footer-text">
+          <span class="bold">bai.bai.internet.bd@gmail.com</span><br>
+          Interested in working with me?
+        </div>
+      </div>
+    </div>
+
+    <!-- social icons: f f in @ Q -->
+    <div class="social-row">
+      <a href="#" target="_blank" id="fbLink"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" id="messengerLink"><i class="fab fa-facebook-messenger"></i></a>
+      <a href="#" target="_blank" id="linkedinLink"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" target="_blank" id="instagramLink"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" id="questionLink"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <div class="copyright">
+      <a href="https://mdsourovsarder.blogspot.com" target="_blank" id="mdsourovsarder.blogspot.com">MD SOUROV SARDER</a>  ·  © 2026 MD SOUROV SARDER — all rights reserved.
+    </div>
+  </footer>
+</div>
+
+<!-- hidden download link -->
+<a id="downloadLink" style="display: none;"></a>
+
+<script>
+  (function() {
+    // ----- YOUR API KEY IS DIRECTLY EMBEDDED HERE -----
+    const YOUR_API_KEY = '2hCwQAnWrmJTcvoUgEyT71t6';
+
+    // Get all DOM elements
+    const uploadInput = document.getElementById('imageUpload');
+    const uploadTrigger = document.getElementById('uploadTrigger');
+    const previewImg = document.getElementById('previewImage');
+    const placeholderDiv = document.getElementById('placeholderPreview');
+    const removeBtn = document.getElementById('removeBgBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const filenameSpan = document.getElementById('dynamicFilename');
+    const dummyDownload = document.getElementById('dummyDownload');
+    const downloadLink = document.getElementById('downloadLink');
+
+    // State variables
+    let selectedFile = null;
+    let removedBgBlob = null;
+    let removedBgUrl = null;
+
+    // ========== MAKE ALL TOP BUTTONS WORK ==========
+    
+    // Home/brand link
+    document.getElementById('homeLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com', '_blank');
+    });
+
+    // Service pills
+    document.getElementById('webDevBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/', '_blank');
+    });
+
+    document.getElementById('seoBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/seo/', '_blank');
+    });
+
+    document.getElementById('marketingBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/marketing/', '_blank');
+    });
+
+    document.getElementById('supportBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/support', '_blank');
+    });
+
+    document.getElementById('contactBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'mailto:bai.bai.internet.bd@gmail.com';
+    });
+
+    // Ad banner button
+    document.getElementById('adGrabDeal').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/special-offer', '_blank');
+    });
+
+    // Terms and Privacy links
+    document.getElementById('termsLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/terms', '_blank');
+    });
+
+    document.getElementById('privacyLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/privacy', '_blank');
+    });
+
+    // Footer links
+    document.getElementById('fbLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://www.facebook.com/#', '_blank');
+    });
+
+    document.getElementById('messengerLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://m.me/#', '_blank');
+    });
+
+    document.getElementById('linkedinLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://www.linkedin.com/company/mdsourovsarder', '_blank');
+    });
+
+    document.getElementById('instagramLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://www.instagram.com/mdsourovsarder', '_blank');
+    });
+
+    document.getElementById('questionLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com/faq', '_blank');
+    });
+
+    document.getElementById('khaledLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mdsourovsarder.blogspot.com', '_blank');
+    });
+
+    // ========== BACKGROUND REMOVER FUNCTIONALITY ==========
+
+    // Check if all elements are found
+    console.log('Elements loaded:', {
+      uploadInput: !!uploadInput,
+      uploadTrigger: !!uploadTrigger,
+      previewImg: !!previewImg,
+      removeBtn: !!removeBtn,
+      downloadBtn: !!downloadBtn
+    });
+
+    // Make sure elements exist before adding listeners
+    if (uploadTrigger) {
+      // Trigger file upload on click
+      uploadTrigger.addEventListener('click', function(e) {
+        console.log('Upload trigger clicked');
+        if (uploadInput) {
+          uploadInput.click();
+        }
+      });
+    }
+
+    if (uploadInput) {
+      // Handle file selection
+      uploadInput.addEventListener('change', function(e) {
+        console.log('File input changed');
+        const file = e.target.files[0];
+        if (file) {
+          console.log('File selected:', file.name);
+          handleFileSelect(file);
+        }
+      });
+    }
+
+    // Handle file selection
+    function handleFileSelect(file) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File too large (max 10MB)');
+        return;
+      }
+      
+      selectedFile = file;
+      
+      // Update filename display
+      if (filenameSpan) {
+        let shortName = file.name.length > 30 ? file.name.substring(0, 27) + '...' : file.name;
+        filenameSpan.innerText = shortName;
+      }
+
+      // Reset previous result
+      removedBgBlob = null;
+      if (removedBgUrl) {
+        URL.revokeObjectURL(removedBgUrl);
+        removedBgUrl = null;
+      }
+      
+      if (previewImg) previewImg.style.display = 'none';
+      if (placeholderDiv) placeholderDiv.style.display = 'flex';
+      if (downloadBtn) downloadBtn.disabled = true;
+      
+      // Show preview of original image
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        console.log('File loaded for preview');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Drag and drop functionality
+    if (uploadTrigger) {
+      uploadTrigger.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.background = '#efe6ff';
+      });
+
+      uploadTrigger.addEventListener('dragleave', function() {
+        this.style.background = '';
+      });
+
+      uploadTrigger.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.background = '';
+        
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          if (file.size > 10 * 1024 * 1024) {
+            alert('File too large (max 10MB)');
+            return;
+          }
+          
+          handleFileSelect(file);
+          
+          // Update input files
+          if (uploadInput) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            uploadInput.files = dataTransfer.files;
+          }
+        } else {
+          alert('Please drop an image file');
+        }
+      });
+    }
+
+    // Remove background button
+    if (removeBtn) {
+      removeBtn.addEventListener('click', async function() {
+        console.log('Remove button clicked');
+        
+        if (!selectedFile) {
+          alert('Please select an image first.');
+          return;
+        }
+
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> removing...';
+        this.disabled = true;
+
+        const formData = new FormData();
+        formData.append('image_file', selectedFile);
+        formData.append('size', 'auto');
+
+        try {
+          console.log('Sending request to remove.bg API...');
+          const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+            method: 'POST',
+            headers: { 'X-Api-Key': YOUR_API_KEY },
+            body: formData
+          });
+
+          console.log('Response status:', response.status);
+
+          if (!response.ok) {
+            const err = await response.text();
+            throw new Error(`API error (${response.status}): ${err}`);
+          }
+
+          const blob = await response.blob();
+          console.log('Received blob:', blob.type, blob.size);
+          
+          removedBgBlob = blob;
+          
+          if (removedBgUrl) {
+            URL.revokeObjectURL(removedBgUrl);
+          }
+          
+          removedBgUrl = URL.createObjectURL(blob);
+
+          if (previewImg) {
+            previewImg.src = removedBgUrl;
+            previewImg.style.display = 'block';
+          }
+          
+          if (placeholderDiv) {
+            placeholderDiv.style.display = 'none';
+          }
+          
+          if (downloadBtn) {
+            downloadBtn.disabled = false;
+          }
+
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Background removal failed: ' + error.message);
+        } finally {
+          this.innerHTML = originalText;
+          this.disabled = false;
+        }
+      });
+    }
+
+    // Download button
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function() {
+        console.log('Download button clicked');
+        downloadResult();
+      });
+    }
+
+    // Dummy download icon
+    if (dummyDownload) {
+      dummyDownload.addEventListener('click', function() {
+        console.log('Dummy download clicked');
+        downloadResult();
+      });
+    }
+
+    // Download function
+    function downloadResult() {
+      if (!removedBgBlob || !removedBgUrl) {
+        alert('No processed image yet.');
+        return;
+      }
+      
+      if (downloadLink) {
+        downloadLink.href = removedBgUrl;
+        downloadLink.download = 'removed_bg_' + Date.now() + '.png';
+        downloadLink.click();
+      }
+    }
+
+    // Initial state
+    if (downloadBtn) downloadBtn.disabled = true;
+    
+    console.log('App initialized successfully with all buttons working');
+  })();
+</script>
+</body>
+</html>
